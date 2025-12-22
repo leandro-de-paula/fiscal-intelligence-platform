@@ -1,39 +1,39 @@
 # Fiscal Intelligence Platform
 
-Plataforma modular para análise fiscal inteligente baseada em XML de documentos fiscais,
-simulação da Reforma Tributária e integração com ERPs, construída com foco em
-SDLC maduro, escalabilidade e uso estratégico de IA.
+A modular platform for intelligent fiscal analysis based on electronic invoice (XML) data,
+tax reform simulation, and ERP integrations — built with a strong focus on
+mature SDLC practices, scalability, and strategic use of AI.
 
-## 🎯 Objetivo
-Criar um produto real de mercado que:
-- Auxilie empresas a reduzir recolhimentos fiscais equivocados
-- Ofereça análises inteligentes de XML e rejeições SEFAZ
-- Simule impactos da Reforma Tributária até 2033
-- Sirva como case completo de Engenharia de Software com SDLC aplicado de ponta a ponta
+## 🎯 Purpose
+Build a real-world market product that:
+- Helps companies reduce incorrect tax payments
+- Provides intelligent analysis of fiscal XML files and SEFAZ rejections
+- Simulates the impact of the Brazilian Tax Reform through 2033
+- Serves as a complete case study of Software Engineering with end-to-end SDLC
 
-## 👥 Público-alvo
-- Desenvolvedores de ERP
-- Contábeis técnicos
-- Empresas que buscam previsibilidade e eficiência fiscal
+## 👥 Target Audience
+- ERP developers
+- Technical accountants
+- Companies seeking fiscal predictability and efficiency
 
-## 🧩 Visão de Arquitetura (alto nível)
-- API-first e modular
-- Processamento assíncrono para tarefas pesadas
-- Integração com IA de forma desacoplada
-- Pronto para integração via API/Webhooks
+## 🧩 Architecture Vision (High Level)
+- API-first and modular
+- Asynchronous processing for heavy workloads
+- Decoupled AI integration
+- Ready for ERP integration via APIs and Webhooks
 
-## 🧭 Roadmap (alto nível)
-- V1: Simulador da Reforma Tributária
-- V2: Validador Inteligente de XML (Rejeições SEFAZ)
-- V3: Calendário Fiscal + Notas Técnicas
-- V4: Integrações ERP e API pública
+## 🧭 Roadmap (High Level)
+- V1: Tax Reform Simulator
+- V2: Intelligent XML Validator (SEFAZ Rejections)
+- V3: Fiscal Calendar + Technical Notes
+- V4: ERP Integrations and Public API
 
 ## 🧠 SDLC
-Este projeto segue práticas formais de SDLC:
-- Discovery orientado a problema real
-- Design com decisões arquiteturais documentadas (ADR)
-- Build modular e testável
-- CI/CD desde os primeiros commits
-- Observabilidade e evolução contínua
+This project follows formal SDLC practices:
+- Discovery driven by real problems
+- Design with documented architectural decisions (ADRs)
+- Modular and testable build
+- CI/CD from the first commits
+- Observability and continuous evolution
 
-Mais detalhes em `docs/manifesto.md`.
+See `docs/manifesto.md` for more details.

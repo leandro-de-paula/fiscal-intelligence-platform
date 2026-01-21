@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: fiscal
+      POSTGRES_USER: fiscal
+      POSTGRES_PASSWORD: fiscal
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api-laravel:
+    build:
+      context: ./apps/api-laravel
+    ports:
+      - "8001:8000"
+    depends_on:
+      - postgres
+
+  engine-fastapi:
+    build:
+      context: ./apps/engine-fastapi
+    ports:
+      - "8002:8000"
+    depends_on:
+      - postgres
+
+  web-react:
+    build:
+      context: ./apps/web-react
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api-laravel
+      - engine-fastapi
+
+volumes:
+  postgres_data:

@@ -1,9 +1,14 @@
-FROM php:8.2-cli
+FROM php:8.4-cli
+
+# deps do sistema + extensões PHP
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends git unzip libpq-dev \
+  && docker-php-ext-install pdo_pgsql \
+  && rm -rf /var/lib/apt/lists/*
+
+# composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-COPY router.php ./router.php
-
-EXPOSE 8000
-
-CMD ["php", "-S", "0.0.0.0:8000", "router.php"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

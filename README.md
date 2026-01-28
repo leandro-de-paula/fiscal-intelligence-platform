@@ -37,3 +37,23 @@ This project follows formal SDLC practices:
 - Observability and continuous evolution
 
 See `docs/manifesto.md` for more details.
+
+## 🚀 Local development (Docker)
+
+Spin up the full stack locally with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+Services and health checks:
+- PostgreSQL: `localhost:5432` (db: `fiscal`, user: `fiscal`, password: `fiscal`)
+- Laravel API placeholder: `http://localhost:8001/health`
+- FastAPI engine placeholder: `http://localhost:8002/health`
+- React web placeholder: `http://localhost:5173`
+
+Shut everything down:
+
+```bash
+docker compose down -v
+```

@@ -1,0 +1,80 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-fip_dev}
+      POSTGRES_USER: ${POSTGRES_USER:-fip}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  init-laravel:
+    image: composer:2
+    working_dir: /app
+    volumes:
+      - ./apps/api-laravel/src:/app
+    command: >
+      sh -lc '
+        if [ ! -f artisan ]; then
+          composer create-project laravel/laravel . --no-interaction;
+        else
+          echo "Laravel already exists (artisan found).";
+        fi
+      '
+    profiles: ["init"]
+
+  api-laravel:
+    build:
+      context: ./apps/api-laravel
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ./apps/api-laravel/src:/app
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -lc "
+        if [ ! -d vendor ]; then composer install --no-interaction; fi &&
+        php artisan serve --host=0.0.0.0 --port=8000
+      "
+
+  engine-fastapi:
+    build:
+      context: ./apps/engine-fastapi
+    working_dir: /app
+    command: sh -lc "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8002:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./apps/engine-fastapi:/app
+
+  web-react:
+    build:
+      context: ./apps/web-react
+    working_dir: /app
+    command: sh -lc "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    ports:
+      - "5173:5173"
+    depends_on:
+      api-laravel:
+        condition: service_started
+      engine-fastapi:
+        condition: service_started
+    volumes:
+      - ./apps/web-react:/app
+
+volumes:
+  postgres_data:

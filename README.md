@@ -52,6 +52,19 @@ Services and health checks:
 - FastAPI engine placeholder: `http://localhost:8002/health`
 - React web placeholder: `http://localhost:5173`
 
+Example: run a tax reform simulation via Laravel:
+
+```bash
+curl -X POST http://localhost:8001/api/simulations/tax-reform \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "base_year": 2028,
+    "revenue": { "goods_annual": 2500000, "services_annual": 1500000 },
+    "last_year_taxes_paid": { "icms": 180000, "iss": 120000, "pis_cofins": 90000 },
+    "growth_rates": { "optimistic": 0.08, "conservative": 0.05, "pessimistic": 0.02 }
+  }'
+```
+
 Shut everything down:
 
 ```bash

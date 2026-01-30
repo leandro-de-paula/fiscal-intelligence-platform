@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'engine' => [
+        'url' => env('ENGINE_URL', 'http://engine-fastapi:8000'),
+    ],
+
 ];
